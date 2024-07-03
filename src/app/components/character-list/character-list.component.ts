@@ -1,13 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CharacterService } from '../../services/character.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
 import { CharacterFilterComponent } from '../character-filter/character-filter.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
-
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatSort, MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 @Component({
   selector: 'app-character-list',
   standalone: true,
@@ -18,31 +21,49 @@ import { MatListModule } from '@angular/material/list';
     MatIconModule,
     MatButtonModule,
     MatListModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatTableModule,
+    MatProgressSpinnerModule,
     CharacterFilterComponent,
   ],
 })
 export class CharacterListComponent implements OnInit {
-  characters: any[] = [];
-  filteredCharacters: any[] = [];
+  displayedColumns: string[] = ['avatar', 'name', 'details'];
+  dataSource!: MatTableDataSource<any>;
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
-    private character_Service: CharacterService,
+    private characterService: CharacterService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.character_Service.getCharacters().subscribe((data) => {
-      this.characters = data.results;
-      this.filteredCharacters = this.characters;
+    this.characterService.getCharacters().subscribe((data) => {
+      this.dataSource = new MatTableDataSource(data.results);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     });
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
+  getAvatarUrl(character: any): string {
+    const characterId = character.url.split('/').slice(-2, -1)[0];
+    return `assets/character-avatar/${characterId}.jpg`;
   }
 
   onCharacterClick(character: any): void {
     const id = character.url.split('/').slice(-2, -1)[0];
     this.router.navigate(['/characters', id]);
-  }
-
-  onFilterChange(filteredCharacters: any[]): void {
-    this.filteredCharacters = filteredCharacters;
   }
 }
