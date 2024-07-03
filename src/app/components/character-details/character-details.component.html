@@ -1,6 +1,50 @@
-<div *ngIf="character">
-  <h2>{{ character.name }}</h2>
-  <p>Species: {{ character.species }}</p>
-  <p>Movies: {{ character.films.join(", ") }}</p>
-  <p>Spaceships: {{ character.starships.join(", ") }}</p>
+<div *ngIf="character" class="character-card">
+  <mat-card>
+    <div>
+      <img
+        [src]="'assets/character-avatar/' + character.id + '.jpg'"
+        class="avatar"
+        alt="{{ character.name }}"
+      />
+    </div>
+    <mat-card-header>
+      <mat-card-title>{{ character.name }}</mat-card-title>
+      <mat-card-subtitle>{{ speciesName }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-tab-group>
+        <mat-tab label="Personal">
+          <div class="tab-content">
+            <p><strong>Height:</strong> {{ character.height }}</p>
+            <p><strong>Mass:</strong> {{ character.mass }}</p>
+            <p><strong>Birth Year:</strong> {{ character.birth_year }}</p>
+            <p><strong>Gender:</strong> {{ character.gender }}</p>
+            <p><strong>Homeworld:</strong> {{ homeworldName }}</p>
+            <p><strong>Species:</strong> {{ speciesName }}</p>
+          </div>
+        </mat-tab>
+        <mat-tab label="Films">
+          <div class="tab-content">
+            <ul>
+              <li *ngFor="let film of films">{{ film }}</li>
+            </ul>
+          </div>
+        </mat-tab>
+        <mat-tab label="Vehicles">
+          <div class="tab-content">
+            <ul>
+              <li *ngFor="let vehicle of vehicles">{{ vehicle }}</li>
+            </ul>
+          </div>
+        </mat-tab>
+        <mat-tab label="Starships">
+          <div class="tab-content">
+            <ul>
+              <li *ngFor="let starship of starships">{{ starship }}</li>
+            </ul>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card-content>
+  </mat-card>
 </div>

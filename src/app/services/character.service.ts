@@ -24,4 +24,16 @@ export class CharacterService {
   getMovies(): Observable<any> {
     return this.http.get(`${environment.API_URL}/films`);
   }
+
+  getVehicles(): Observable<any> {
+    return this.http.get(`${environment.API_URL}/vehicles`);
+  }
+
+  getStarships(): Observable<any> {
+    return this.http.get(`${environment.API_URL}/starships`);
+  }
+
+  getData(url: string): Observable<any> {
+    return this.http.get<any>(url);
+  }
 }
