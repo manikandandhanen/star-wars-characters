@@ -1,5 +1,61 @@
 <div class="mat-elevation-z8">
+  <div class="filter-section">
+    <mat-form-field appearance="fill" class="big-filter">
+      <mat-label>Movie</mat-label>
+      <mat-select
+        multiple
+        [(value)]="selectedMovies"
+        (selectionChange)="applyFilter()"
+      >
+        <mat-option *ngFor="let movie of moviesList" [value]="movie">{{
+          movie
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="big-filter">
+      <mat-label>Species</mat-label>
+      <mat-select
+        multiple
+        [(value)]="selectedSpecies"
+        (selectionChange)="applyFilter()"
+      >
+        <mat-option *ngFor="let species of speciesList" [value]="species">{{
+          species
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="small-filter">
+      <mat-label>Min Birth Year</mat-label>
+      <input
+        matInput
+        type="text"
+        [(ngModel)]="minBirthYear"
+        (ngModelChange)="applyFilter()"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="small-filter">
+      <mat-label>Max Birth Year</mat-label>
+      <input
+        matInput
+        type="text"
+        [(ngModel)]="maxBirthYear"
+        (ngModelChange)="applyFilter()"
+      />
+    </mat-form-field>
+  </div>
+
   <mat-table [dataSource]="dataSource" matSort>
+    <!-- S.No Column -->
+    <ng-container matColumnDef="sno">
+      <mat-header-cell *matHeaderCellDef> S.No </mat-header-cell>
+      <mat-cell *matCellDef="let character; let i = index">
+        {{ i + 1 }}
+      </mat-cell>
+    </ng-container>
+
     <!-- Avatar Column -->
     <ng-container matColumnDef="avatar">
       <mat-header-cell *matHeaderCellDef> Avatar </mat-header-cell>
@@ -16,11 +72,34 @@
       <mat-cell *matCellDef="let character"> {{ character.name }} </mat-cell>
     </ng-container>
 
+    <!-- Species Column -->
+    <ng-container matColumnDef="species">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        Species
+      </mat-header-cell>
+      <mat-cell *matCellDef="let character"> {{ character.species }} </mat-cell>
+    </ng-container>
+
+    <!-- Birth Year Column -->
+    <ng-container matColumnDef="birth_year">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        Birth Year
+      </mat-header-cell>
+      <mat-cell *matCellDef="let character">
+        {{ character.birth_year }}
+      </mat-cell>
+    </ng-container>
+
     <!-- Details Button Column -->
     <ng-container matColumnDef="details">
       <mat-header-cell *matHeaderCellDef> Details </mat-header-cell>
       <mat-cell *matCellDef="let character">
-        <button mat-button (click)="onCharacterClick(character)">
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="onCharacterClick(character)"
+          matTooltip="View character details"
+        >
           View Details
         </button>
       </mat-cell>

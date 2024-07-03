@@ -10,10 +10,18 @@ export class CharacterService {
   constructor(private http: HttpClient) {}
 
   getCharacters(): Observable<any> {
-    return this.http.get(`${environment.LOGIN_URL}`);
+    return this.http.get(`${environment.API_URL}/people`);
   }
 
   getCharacter(id: number): Observable<any> {
-    return this.http.get<any>(`${environment.LOGIN_URL}/${id}`);
+    return this.http.get<any>(`${environment.API_URL}/people/${id}`);
+  }
+
+  getSpecies(): Observable<any> {
+    return this.http.get(`${environment.API_URL}/species`);
+  }
+
+  getMovies(): Observable<any> {
+    return this.http.get(`${environment.API_URL}/films`);
   }
 }
