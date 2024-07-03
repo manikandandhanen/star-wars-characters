@@ -21,4 +21,30 @@ img {
 button {
   background-color: #1976d2;
   color: white;
+  font-size: 0.75rem;
+  padding: 4px 8px;
+}
+
+.filter-section {
+  top: 10px;
+  right: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-end;
+  padding-top: 15px;
+
+  .small-filter {
+    max-width: 150px;
+    margin-right: 10px;
+  }
+
+  .big-filter {
+    max-width: 250px;
+    margin-right: 10px;
+  }
+}
+
+mat-form-field {
+  width: 30%;
 }
