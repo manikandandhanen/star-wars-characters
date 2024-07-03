@@ -1,13 +1,37 @@
-<div>
-  <app-character-filter
-    (filterChange)="onFilterChange($event)"
-  ></app-character-filter>
-  <mat-list>
-    <mat-list-item
-      *ngFor="let character of filteredCharacters"
-      (click)="onCharacterClick(character)"
-    >
-      {{ character.name }}
-    </mat-list-item>
-  </mat-list>
+<div class="mat-elevation-z8">
+  <mat-table [dataSource]="dataSource" matSort>
+    <!-- Avatar Column -->
+    <ng-container matColumnDef="avatar">
+      <mat-header-cell *matHeaderCellDef> Avatar </mat-header-cell>
+      <mat-cell *matCellDef="let character">
+        <img [src]="getAvatarUrl(character)" alt="{{ character.name }}" />
+      </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        Name
+      </mat-header-cell>
+      <mat-cell *matCellDef="let character"> {{ character.name }} </mat-cell>
+    </ng-container>
+
+    <!-- Details Button Column -->
+    <ng-container matColumnDef="details">
+      <mat-header-cell *matHeaderCellDef> Details </mat-header-cell>
+      <mat-cell *matCellDef="let character">
+        <button mat-button (click)="onCharacterClick(character)">
+          View Details
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </mat-table>
+
+  <mat-paginator
+    [pageSizeOptions]="[5, 10, 20]"
+    showFirstLastButtons
+  ></mat-paginator>
 </div>
