@@ -1,0 +1,6 @@
+<div *ngIf="character">
+  <h2>{{ character.name }}</h2>
+  <p>Species: {{ character.species }}</p>
+  <p>Movies: {{ character.films.join(", ") }}</p>
+  <p>Spaceships: {{ character.starships.join(", ") }}</p>
+</div>
