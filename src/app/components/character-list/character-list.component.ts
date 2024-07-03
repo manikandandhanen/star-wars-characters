@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { CharacterService } from '../../services/character.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { CharacterFilterComponent } from '../character-filter/character-filter.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
@@ -36,7 +35,6 @@ import { HttpClient } from '@angular/common/http';
     MatFormFieldModule,
     MatCardModule,
     MatProgressSpinnerModule,
-    CharacterFilterComponent,
     FormsModule,
   ],
 })
