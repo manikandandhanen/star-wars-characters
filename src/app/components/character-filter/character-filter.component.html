@@ -1,0 +1,37 @@
+<div>
+  <mat-form-field appearance="fill">
+    <mat-label>Movie</mat-label>
+    <mat-select
+      [(value)]="filterCriteria.movie"
+      (selectionChange)="applyFilter()"
+    >
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Species</mat-label>
+    <mat-select
+      [(value)]="filterCriteria.species"
+      (selectionChange)="applyFilter()"
+    >
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Birth Year Range (min)</mat-label>
+    <input
+      matInput
+      [(ngModel)]="filterCriteria.birthYearRange.min"
+      (ngModelChange)="applyFilter()"
+    />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Birth Year Range (max)</mat-label>
+    <input
+      matInput
+      [(ngModel)]="filterCriteria.birthYearRange.max"
+      (ngModelChange)="applyFilter()"
+    />
+  </mat-form-field>
+</div>
