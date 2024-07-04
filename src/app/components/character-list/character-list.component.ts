@@ -16,6 +16,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @Component({
   selector: 'app-character-list',
@@ -34,6 +35,7 @@ import { HttpClient } from '@angular/common/http';
     MatInputModule,
     MatFormFieldModule,
     MatCardModule,
+    MatProgressBarModule,
     MatProgressSpinnerModule,
     FormsModule,
   ],
@@ -62,6 +64,8 @@ export class CharacterListComponent implements OnInit {
   birthYears: any[] = [];
   filmMap: Map<string, string> = new Map();
 
+  isLoading: boolean = true;
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -78,6 +82,7 @@ export class CharacterListComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
       this.mapSpeciesNames();
+      this.isLoading = false;
     });
     this.getSpeciesList();
     this.getMoviesList();
