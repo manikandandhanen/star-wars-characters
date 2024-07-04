@@ -5,11 +5,18 @@ import { CharacterService } from '../../services/character.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @Component({
   selector: 'app-character-details',
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatCardModule, MatTabsModule],
+  imports: [
+    CommonModule,
+    MatIconModule,
+    MatCardModule,
+    MatTabsModule,
+    MatProgressBarModule,
+  ],
   templateUrl: './character-details.component.html',
   styleUrl: './character-details.component.scss',
 })
@@ -20,6 +27,7 @@ export class CharacterDetailsComponent implements OnInit {
   films: string[] = [];
   vehicles: string[] = [];
   starships: string[] = [];
+  isLoading: boolean = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -32,6 +40,7 @@ export class CharacterDetailsComponent implements OnInit {
       this.character = data;
       this.character.id = id; // Ensure the character has an id property for the avatar image
       this.loadAdditionalData();
+      this.isLoading = false;
     });
   }
 

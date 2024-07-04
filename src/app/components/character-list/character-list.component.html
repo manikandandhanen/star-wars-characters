@@ -1,4 +1,5 @@
 <div class="mat-elevation-z8">
+  <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
   <div class="filter-section">
     <mat-form-field appearance="fill" class="big-filter">
       <mat-label>Movie</mat-label>
@@ -107,6 +108,9 @@
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    <ng-container class="mat-row" *matNoDataRow>
+      <div class="no-data-cell">No characters found</div>
+    </ng-container>
   </mat-table>
 
   <mat-paginator
