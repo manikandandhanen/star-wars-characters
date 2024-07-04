@@ -38,14 +38,13 @@ export class CharacterDetailsComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     this.characterService.getCharacter(Number(id)).subscribe((data) => {
       this.character = data;
-      this.character.id = id; // Ensure the character has an id property for the avatar image
+      this.character.id = id;
       this.loadAdditionalData();
       this.isLoading = false;
     });
   }
 
   loadAdditionalData() {
-    // Fetch homeworld name
     if (this.character.homeworld) {
       this.characterService
         .getData(this.character.homeworld)
@@ -54,7 +53,6 @@ export class CharacterDetailsComponent implements OnInit {
         });
     }
 
-    // Fetch species name
     if (this.character.species && this.character.species.length > 0) {
       this.characterService
         .getData(this.character.species[0])
@@ -63,7 +61,6 @@ export class CharacterDetailsComponent implements OnInit {
         });
     }
 
-    // Fetch film titles
     if (this.character.films && this.character.films.length > 0) {
       this.character.films.forEach((filmUrl: string) => {
         this.characterService.getData(filmUrl).subscribe((film) => {
@@ -72,7 +69,6 @@ export class CharacterDetailsComponent implements OnInit {
       });
     }
 
-    // Fetch vehicle names
     if (this.character.vehicles && this.character.vehicles.length > 0) {
       this.character.vehicles.forEach((vehicleUrl: string) => {
         this.characterService.getData(vehicleUrl).subscribe((vehicle) => {
@@ -81,7 +77,6 @@ export class CharacterDetailsComponent implements OnInit {
       });
     }
 
-    // Fetch starship names
     if (this.character.starships && this.character.starships.length > 0) {
       this.character.starships.forEach((starshipUrl: string) => {
         this.characterService.getData(starshipUrl).subscribe((starship) => {
